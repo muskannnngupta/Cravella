@@ -35,7 +35,7 @@ const loginUser = async (req,res) => {
                 success: true,
                 isNotVerified: true,
                 otpRequired: true,
-                message: emailSent ? "Verification OTP sent to your email." : "Verification OTP generated. (Email sending failed)"
+                message: emailSent ? "Verification OTP sent to your email." : `Verification OTP generated. (Email sending failed. For testing, use code: ${otp})`
             });
         }
 
@@ -55,7 +55,7 @@ const loginUser = async (req,res) => {
         res.json({
             success: true,
             otpRequired: true,
-            message: emailSent ? "OTP sent to your email." : "OTP generated. (Email sending failed. Contact admin or check env variables)"
+            message: emailSent ? "OTP sent to your email." : `OTP generated. (Email sending failed. For testing, use code: ${otp})`
         });
     } catch(err) {
         console.log(err);
@@ -155,7 +155,7 @@ const registerUser = async (req,res) => {
         res.json({
             success: true,
             otpRequired: true,
-            message: emailSent ? "Verification OTP sent to your email." : "Verification OTP generated. (Email sending failed)"
+            message: emailSent ? "Verification OTP sent to your email." : `Verification OTP generated. (Email sending failed. For testing, use code: ${otp})`
         });
 
     } catch(err) {
@@ -316,7 +316,7 @@ const forgotPassword = async (req, res) => {
 
         res.json({ 
             success: true, 
-            message: emailSent ? "Password reset OTP sent to your email." : "OTP generated. (Email sending failed. Contact admin or check env variables)"
+            message: emailSent ? "Password reset OTP sent to your email." : `OTP generated. (Email sending failed. For testing, use code: ${otp})`
         });
     } catch (error) {
         console.error(error);
@@ -380,7 +380,7 @@ const resendOtp = async (req, res) => {
                 "Cravella Account Verification OTP 🍕",
                 `Hello ${user.name},\n\nYour new verification OTP is: ${otp} 🔑\n\nEnter this code to activate your account and start ordering delicious meals! 😋🍔🍕\n\nBest regards,\nCravella Team`
             );
-            return res.json({ success: true, message: emailSent ? "Verification OTP resent to your email." : "OTP generated. (Email sending failed)" });
+            return res.json({ success: true, message: emailSent ? "Verification OTP resent to your email." : `OTP generated. (Email sending failed. For testing, use code: ${otp})` });
         }
 
         if (type === "login") {
@@ -393,7 +393,7 @@ const resendOtp = async (req, res) => {
                 "Cravella Login Verification OTP 🍕",
                 `Hello ${user.name},\n\nYour new OTP for verifying your login is: ${otp} 🔑\n\nGrab your favorite foods and let's satisfy those cravings! 😋🍔🍕\n\nBest regards,\nCravella Team`
             );
-            return res.json({ success: true, message: emailSent ? "Login OTP resent to your email." : "OTP generated. (Email sending failed)" });
+            return res.json({ success: true, message: emailSent ? "Login OTP resent to your email." : `OTP generated. (Email sending failed. For testing, use code: ${otp})` });
         }
 
         if (type === "reset") {
@@ -406,7 +406,7 @@ const resendOtp = async (req, res) => {
                 "Cravella Password Reset OTP 🔑",
                 `Hello ${user.name},\n\nYour new OTP for resetting your password is: ${otp} 🍩\n\nBest regards,\nCravella Team`
             );
-            return res.json({ success: true, message: emailSent ? "Reset OTP resent to your email." : "OTP generated. (Email sending failed)" });
+            return res.json({ success: true, message: emailSent ? "Reset OTP resent to your email." : `OTP generated. (Email sending failed. For testing, use code: ${otp})` });
         }
 
         res.json({ success: false, message: "Invalid OTP type" });
