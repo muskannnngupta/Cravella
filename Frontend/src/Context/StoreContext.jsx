@@ -15,7 +15,7 @@ const StoreContextProvider = (props) => {
     }
   });
 
-  const url = "http://localhost:4000"; // Replace with your backend URL
+  const url = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
   const [token, setToken] = useState(() => localStorage.getItem("token") || "");
   const [loading, setLoading] = useState(true);
   const [foodList, setFoodList] = useState([]);
