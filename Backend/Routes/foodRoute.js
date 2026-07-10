@@ -1,6 +1,6 @@
 import express from 'express'
 import { addFood , listfood , removefood, rateFood} from '../Controllers/foodController.js'
-import authMiddleware from '../Middleware/Auth.js'
+import authMiddleware from '../Middleware/auth.js'
 
 import multer from 'multer'
 
