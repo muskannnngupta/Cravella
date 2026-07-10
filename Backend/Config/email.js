@@ -1,61 +1,41 @@
-import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-import dns from 'dns';
-
-// Force Node to resolve IPv4 addresses first (avoids ENETUNREACH IPv6 issue on Render)
-dns.setDefaultResultOrder('ipv4first');
-
 dotenv.config();
 
 const sendEmail = async (to, subject, text) => {
     try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.warn("WARNING: EMAIL_USER and EMAIL_PASS environment variables are not set in Backend/.env.");
+        if (!process.env.RESEND_API_KEY) {
+            console.warn("WARNING: RESEND_API_KEY environment variable is not set.");
             return false;
         }
 
-        // Dynamically resolve smtp.gmail.com to IPv4 address only
-        const smtpIp = await new Promise((resolve) => {
-            dns.resolve4('smtp.gmail.com', (err, addresses) => {
-                if (err || !addresses || !addresses.length) {
-                    // Fallback to a known stable Gmail SMTP IPv4 address if DNS lookup fails
-                    resolve('74.125.142.108');
-                } else {
-                    resolve(addresses[0]);
-                }
-            });
+        console.log(`[Email] Sending email to ${to} via Resend HTTP API...`);
+
+        // Send email via Resend REST API (uses standard port 443, bypassed by Render firewall)
+        const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+            },
+            body: JSON.stringify({
+                from: 'Cravella <onboarding@resend.dev>', // Resend sandbox testing sender
+                to: [to],
+                subject,
+                text
+            })
         });
 
-        console.log(`[SMTP] Resolved smtp.gmail.com to IPv4 address: ${smtpIp}`);
-        
-        const transporter = nodemailer.createTransport({
-            host: smtpIp,
-            port: 587,
-            secure: false, // Use STARTTLS on port 587
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            },
-            tls: {
-                servername: 'smtp.gmail.com' // Crucial for valid SSL certificate handshake
-            },
-            connectionTimeout: 4000, // Timeout after 4 seconds if blocked
-            greetingTimeout: 4000,
-            socketTimeout: 4000
-        });
+        const data = await response.json();
 
-        const mailOptions = {
-            from: `"Cravella Support" <${process.env.EMAIL_USER}>`,
-            to,
-            subject,
-            text
-        };
-
-        const info = await transporter.sendMail(mailOptions);
-        console.log("Email sent successfully: ", info.messageId);
-        return true;
+        if (response.ok) {
+            console.log("Email sent successfully via Resend:", data.id);
+            return true;
+        } else {
+            console.error("Resend API error response:", data);
+            return false;
+        }
     } catch (error) {
-        console.error("Error sending email: ", error);
+        console.error("Error sending email via Resend:", error);
         return false;
     }
 };
