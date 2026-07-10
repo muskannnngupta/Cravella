@@ -1,5 +1,10 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import dns from 'dns';
+
+// Force Node to resolve IPv4 addresses first (avoids ENETUNREACH IPv6 issue on Render)
+dns.setDefaultResultOrder('ipv4first');
+
 dotenv.config();
 
 // Create transporter
