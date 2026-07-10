@@ -266,7 +266,7 @@ const toggleFavorite = async (req, res) => {
         const user = await userModel.findById(req.user.userId);
         if (!user) return res.json({ success: false, message: "User not found" });
 
-        const index = user.favorites.indexOf(foodId);
+        const index = user.favorites.findIndex(id => id.toString() === foodId);
         if (index > -1) {
             user.favorites.splice(index, 1);
         } else {
