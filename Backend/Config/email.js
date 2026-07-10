@@ -7,30 +7,40 @@ dns.setDefaultResultOrder('ipv4first');
 
 dotenv.config();
 
-// Create transporter forcing IPv4 resolution
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // Use STARTTLS on port 587
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    // Force IPv4 only DNS lookup for the SMTP connection
-    lookup: (hostname, options, callback) => {
-        dns.lookup(hostname, { family: 4 }, (err, address, family) => {
-            callback(err, address, family);
-        });
-    }
-});
-
 const sendEmail = async (to, subject, text) => {
     try {
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
             console.warn("WARNING: EMAIL_USER and EMAIL_PASS environment variables are not set in Backend/.env.");
             return false;
         }
+
+        // Dynamically resolve smtp.gmail.com to IPv4 address only
+        const smtpIp = await new Promise((resolve) => {
+            dns.resolve4('smtp.gmail.com', (err, addresses) => {
+                if (err || !addresses || !addresses.length) {
+                    // Fallback to a known stable Gmail SMTP IPv4 address if DNS lookup fails
+                    resolve('74.125.142.108');
+                } else {
+                    resolve(addresses[0]);
+                }
+            });
+        });
+
+        console.log(`[SMTP] Resolved smtp.gmail.com to IPv4 address: ${smtpIp}`);
         
+        const transporter = nodemailer.createTransport({
+            host: smtpIp,
+            port: 587,
+            secure: false, // Use STARTTLS on port 587
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            },
+            tls: {
+                servername: 'smtp.gmail.com' // Crucial for valid SSL certificate handshake
+            }
+        });
+
         const mailOptions = {
             from: `"Cravella Support" <${process.env.EMAIL_USER}>`,
             to,
