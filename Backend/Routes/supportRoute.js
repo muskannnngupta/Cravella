@@ -1,6 +1,6 @@
 import express from "express";
 import { createTicket, getUserTickets, getAllTickets, replyToTicket } from "../Controllers/supportController.js";
-import authMiddleware from "../Middleware/Auth.js";
+import authMiddleware from "../Middleware/auth.js";
 
 const supportRouter = express.Router();
 
