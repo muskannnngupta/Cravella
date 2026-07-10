@@ -358,4 +358,62 @@ const resetPassword = async (req, res) => {
     }
 }
 
-export {loginUser, verifyLoginOtp, registerUser, verifyRegisterOtp, getUserProfile, updateUserProfile, toggleFavorite, getFavorites, forgotPassword, resetPassword};
+// Resend OTP
+const resendOtp = async (req, res) => {
+    const { email, type } = req.body;
+    try {
+        const user = await userModel.findOne({ email });
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
+        }
+
+        // Generate 6-digit OTP
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+        if (type === "register") {
+            user.registerOtp = otp;
+            user.registerOtpExpires = Date.now() + 300000; // 5 mins
+            await user.save();
+
+            const emailSent = await sendEmail(
+                email,
+                "Cravella Account Verification OTP 🍕",
+                `Hello ${user.name},\n\nYour new verification OTP is: ${otp} 🔑\n\nEnter this code to activate your account and start ordering delicious meals! 😋🍔🍕\n\nBest regards,\nCravella Team`
+            );
+            return res.json({ success: true, message: emailSent ? "Verification OTP resent to your email." : "OTP generated. (Email sending failed)" });
+        }
+
+        if (type === "login") {
+            user.loginOtp = otp;
+            user.loginOtpExpires = Date.now() + 300000; // 5 mins
+            await user.save();
+
+            const emailSent = await sendEmail(
+                email,
+                "Cravella Login Verification OTP 🍕",
+                `Hello ${user.name},\n\nYour new OTP for verifying your login is: ${otp} 🔑\n\nGrab your favorite foods and let's satisfy those cravings! 😋🍔🍕\n\nBest regards,\nCravella Team`
+            );
+            return res.json({ success: true, message: emailSent ? "Login OTP resent to your email." : "OTP generated. (Email sending failed)" });
+        }
+
+        if (type === "reset") {
+            user.resetOtp = otp;
+            user.resetOtpExpires = Date.now() + 900000; // 15 mins
+            await user.save();
+
+            const emailSent = await sendEmail(
+                email,
+                "Cravella Password Reset OTP 🔑",
+                `Hello ${user.name},\n\nYour new OTP for resetting your password is: ${otp} 🍩\n\nBest regards,\nCravella Team`
+            );
+            return res.json({ success: true, message: emailSent ? "Reset OTP resent to your email." : "OTP generated. (Email sending failed)" });
+        }
+
+        res.json({ success: false, message: "Invalid OTP type" });
+    } catch (error) {
+        console.error(error);
+        res.json({ success: false, message: "Error resending OTP" });
+    }
+}
+
+export {loginUser, verifyLoginOtp, registerUser, verifyRegisterOtp, getUserProfile, updateUserProfile, toggleFavorite, getFavorites, forgotPassword, resetPassword, resendOtp};

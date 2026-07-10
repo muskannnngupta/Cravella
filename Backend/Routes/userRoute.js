@@ -1,5 +1,5 @@
 import express from "express";
-import {loginUser, verifyLoginOtp, registerUser, verifyRegisterOtp, getUserProfile, updateUserProfile, toggleFavorite, getFavorites, forgotPassword, resetPassword} from "../Controllers/userController.js";
+import {loginUser, verifyLoginOtp, registerUser, verifyRegisterOtp, getUserProfile, updateUserProfile, toggleFavorite, getFavorites, forgotPassword, resetPassword, resendOtp} from "../Controllers/userController.js";
 import authMiddleware from "../Middleware/auth.js";
 
 const userRouter = express.Router();
@@ -14,5 +14,6 @@ userRouter.post("/favorites", authMiddleware, toggleFavorite);
 userRouter.get("/favorites", authMiddleware, getFavorites);
 userRouter.post("/forgot-password", forgotPassword);
 userRouter.post("/reset-password", resetPassword);
+userRouter.post("/resend-otp", resendOtp);
 
 export default userRouter;

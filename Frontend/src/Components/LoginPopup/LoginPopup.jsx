@@ -17,6 +17,40 @@ const LoginPopup = ({setshowlogin}) => {
     const [otpInput, setOtpInput] = useState("");
     const [statusMsg, setStatusMsg] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [resendCooldown, setResendCooldown] = useState(0);
+
+    useEffect(() => {
+        if (resendCooldown > 0) {
+            const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [resendCooldown]);
+
+    const handleResendOtp = async () => {
+        let type = "";
+        if (currstate === "Verify Login OTP") type = "login";
+        else if (currstate === "Verify Register OTP") type = "register";
+        else if (currstate === "Reset Password") type = "reset";
+
+        if (!type) return;
+
+        setIsSubmitting(true);
+        setStatusMsg("");
+        try {
+            const res = await axios.post(`${url}/api/user/resend-otp`, { email: data.email, type });
+            if (res.data.success) {
+                setStatusMsg(res.data.message);
+                setResendCooldown(30); // 30 seconds cooldown
+            } else {
+                alert(res.data.message);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Error resending OTP. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     const onChangeHandler = (event) => {
         const name = event.target.name;
@@ -162,6 +196,17 @@ const LoginPopup = ({setshowlogin}) => {
                 </button>
                 
                 {statusMsg && <p style={{color: 'green', fontSize: '12px'}}>{statusMsg}</p>}
+
+                {(currstate === "Verify Login OTP" || currstate === "Verify Register OTP" || currstate === "Reset Password") && (
+                  <p style={{fontSize: '12px', marginTop: '5px', textAlign: 'center'}}>
+                    Didn't receive the code?{' '}
+                    {resendCooldown > 0 ? (
+                      <span style={{color: 'gray', cursor: 'not-allowed', fontWeight: '500'}}>Resend in {resendCooldown}s</span>
+                    ) : (
+                      <span onClick={handleResendOtp} style={{color: 'var(--primary-color)', cursor: 'pointer', fontWeight: '500'}}>Resend OTP</span>
+                    )}
+                  </p>
+                )}
 
                 {(currstate === "Login" || currstate === "Sign Up") && (
                   <div className="login-popup-condition">
