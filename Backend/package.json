@@ -8,7 +8,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon Server.js",
-    "Server": "nodemon Server.js "
+    "Server": "nodemon Server.js ",
+    "start": "node Server.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
