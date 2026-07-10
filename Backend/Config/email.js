@@ -38,7 +38,10 @@ const sendEmail = async (to, subject, text) => {
             },
             tls: {
                 servername: 'smtp.gmail.com' // Crucial for valid SSL certificate handshake
-            }
+            },
+            connectionTimeout: 4000, // Timeout after 4 seconds if blocked
+            greetingTimeout: 4000,
+            socketTimeout: 4000
         });
 
         const mailOptions = {
