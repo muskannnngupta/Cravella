@@ -4,7 +4,11 @@ dotenv.config();
 import express from 'express'
 import cors from 'cors'
 import dns from "dns";
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
+try {
+    dns.setServers(["8.8.8.8", "8.8.4.4"]);
+} catch (error) {
+    console.warn("Custom DNS servers setup skipped:", error.message);
+}
 import { connectDB } from './Config/db.js';
 import foodModel from './Models/Foodmodel.js';
 import foodRouter from './Routes/foodRoute.js';
