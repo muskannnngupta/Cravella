@@ -1,0 +1,98 @@
+.promo-admin {
+  padding: 20px;
+}
+
+.add-promo-section {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.add-promo-form {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.add-promo-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-promo-form button {
+  padding: 10px 20px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-promo-form button:hover {
+  background-color: #e5533d;
+}
+
+.promo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.promo-table th, .promo-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.promo-table th {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-badge.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.toggle-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.toggle-btn.disable {
+  background-color: #dc3545;
+  color: white;
+}
+
+.toggle-btn.enable {
+  background-color: #28a745;
+  color: white;
+}
+
+.no-promos {
+  margin-top: 20px;
+  color: #777;
+  text-align: center;
+}

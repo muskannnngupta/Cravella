@@ -1,0 +1,676 @@
+.zomato-profile-container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+  animation: fadeIn 0.8s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Zomato Identity Banner Block */
+.zomato-profile-header {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f2f2f2;
+}
+
+.zomato-cover-banner {
+  height: 160px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.25)), url('/header_img.png') no-repeat center/cover;
+  width: 100%;
+}
+
+.zomato-user-info-row {
+  display: flex;
+  align-items: center;
+  padding: 0 30px 25px 30px;
+  position: relative;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.zomato-avatar-wrapper {
+  margin-top: -60px;
+  z-index: 2;
+  position: relative;
+}
+
+.zomato-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  border: 5px solid white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 42px;
+  font-weight: 700;
+  color: white;
+}
+
+.zomato-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-edit-overlay {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-color: var(--primary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+
+.avatar-edit-overlay:hover {
+  transform: scale(1.1);
+  background-color: var(--primary-hover);
+}
+
+.zomato-user-meta-col {
+  flex: 1;
+  padding-top: 10px;
+  min-width: 250px;
+}
+
+.zomato-user-meta-col h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1c1c1c;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.5px;
+}
+
+.user-location {
+  font-size: 13px;
+  color: #696969;
+  margin: 0 0 4px 0;
+  font-weight: 500;
+}
+
+.user-email {
+  font-size: 13px;
+  color: #828282;
+  margin: 0;
+}
+
+.zomato-user-stats-row {
+  display: flex;
+  gap: 20px;
+}
+
+.zomato-stat-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 8px 16px;
+  min-width: 100px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #828282;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+.stat-value.text-green {
+  color: #1c8540;
+}
+
+.stat-value.text-red {
+  color: var(--primary-color);
+}
+
+/* Zomato Dashboard Body Grid */
+.zomato-profile-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Sidebar Styling */
+.zomato-sidebar {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f2f2f2;
+}
+
+.sidebar-section-title {
+  font-size: 12px;
+  color: #828282;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 0 0 15px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.sidebar-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sidebar-link {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-link:hover {
+  background-color: #fafafa;
+  color: var(--primary-color);
+}
+
+.sidebar-link.active {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border-left-color: var(--primary-color);
+  font-weight: 600;
+}
+
+.logout-link {
+  margin-top: 15px;
+  border-top: 1px solid #f2f2f2;
+  padding-top: 15px;
+  border-radius: 0;
+}
+
+.logout-link:hover {
+  background-color: #fff5f5;
+  color: #e74c3c;
+}
+
+/* Zomato Content Panel */
+.zomato-content-panel {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f2f2f2;
+  min-height: 450px;
+}
+
+.pane-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1c1c1c;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.5px;
+}
+
+.pane-desc {
+  font-size: 13px;
+  color: #828282;
+  margin-bottom: 25px;
+}
+
+/* Zomato Style Card List Layout */
+.zomato-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.zomato-order-card {
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: white;
+  transition: all 0.3s;
+}
+
+.zomato-order-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.04);
+  border-color: #d8d8d8;
+}
+
+.order-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #f2f2f2;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.restaurant-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.restaurant-icon {
+  font-size: 24px;
+  background-color: var(--primary-light);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.restaurant-info h4 {
+  margin: 0 0 3px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1c1c1c;
+}
+
+.order-timestamp {
+  font-size: 12px;
+  color: #828282;
+  margin: 0;
+}
+
+.order-cost {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1c1c;
+}
+
+.order-items-summary {
+  font-size: 13px;
+  color: #363636;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.zomato-card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f2f2f2;
+  padding-top: 12px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.delivered-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1c8540;
+  background-color: #e6f4ea;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.action-buttons-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* Stepper inside Zomato Cards */
+.zomato-stepper-wrapper {
+  border-top: 1px solid #f2f2f2;
+  padding-top: 15px;
+}
+
+.delivery-timeline-pill p {
+  margin: 0 0 15px 0;
+  padding: 5px 12px;
+  background-color: var(--primary-light);
+  border-radius: 20px;
+  display: inline-block;
+  color: var(--primary-color);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid #ffdcd6;
+}
+
+.zomato-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 480px;
+}
+
+.stepper-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 65px;
+  z-index: 2;
+  position: relative;
+}
+
+.step-bullet {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: #e8e8e8;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+
+.stepper-step.active .step-bullet {
+  background-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.step-text {
+  font-size: 10px;
+  color: #999;
+  margin-top: 6px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.stepper-step.active .step-text {
+  color: var(--primary-color);
+}
+
+.stepper-connector {
+  flex: 1;
+  height: 2px;
+  background-color: #e8e8e8;
+  margin-bottom: 16px;
+  z-index: 1;
+}
+
+.stepper-connector.active {
+  background-color: var(--primary-color);
+}
+
+/* Zomato Buttons Style */
+.btn-primary-filled {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary-filled:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary-outline {
+  background-color: white;
+  color: #555;
+  border: 1px solid #ced4da;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary-outline:hover {
+  background-color: #f8f9fa;
+  border-color: #bbb;
+  color: #333;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+/* Address Form */
+.zomato-address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-grid-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group-full {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group-full label, .form-group-col label {
+  color: #4f4f4f;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.form-group-full input, .form-group-col input {
+  padding: 10px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.form-group-full input:focus, .form-group-col input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.disabled-input {
+  background-color: #f5f5f5;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.form-flex-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-group-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Zomato Empty State Cards */
+.zomato-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  border: 1px dashed #e8e8e8;
+  border-radius: 12px;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.zomato-empty-state h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin: 0 0 6px 0;
+}
+
+.zomato-empty-state p {
+  font-size: 13px;
+  color: #828282;
+  margin: 0 0 20px 0;
+}
+
+.empty-state-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.empty-state-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Loading Spinners */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--primary-light);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 800px) {
+  .zomato-profile-body {
+    grid-template-columns: 1fr;
+  }
+  .zomato-sidebar {
+    padding: 15px;
+  }
+  .sidebar-menu-links {
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+  }
+  .sidebar-link {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+  .sidebar-link.active {
+    border-bottom-color: var(--primary-color);
+    background: none;
+  }
+  .logout-link {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 8px;
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .zomato-user-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 20px 20px 20px;
+  }
+  .zomato-avatar-wrapper {
+    margin-top: -55px;
+  }
+  .zomato-user-meta-col {
+    width: 100%;
+  }
+  .zomato-user-stats-row {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .zomato-stat-badge {
+    flex: 1;
+    min-width: 45%;
+  }
+  .form-flex-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .zomato-content-panel {
+    padding: 20px;
+  }
+}
+
+/* Support Form Elements */
+.support-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #fff;
+}
+
+.order-status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.order-status-badge.pending {
+  background-color: #ffe6e6;
+  color: #cc0000;
+}
+
+.order-status-badge.replied {
+  background-color: #e6ffe6;
+  color: #008000;
+}

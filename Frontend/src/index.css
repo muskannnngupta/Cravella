@@ -1,0 +1,479 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap');
+
+:root {
+  --primary-color: tomato; /* Original brand color */
+  --primary-hover: #ff6b4a; /* Original hover color */
+  --primary-light: #fff4f2; /* Original light accent */
+  
+  --bg-color: #ffffff;
+  --text-color: #262626;
+  --text-muted: #676767;
+  --card-bg: #ffffff;
+  --border-color: #e2e2e2;
+  --body-bg: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode {
+  --bg-color: #0d1117;
+  --text-color: #f0f6fc;
+  --text-muted: #8b949e;
+  --card-bg: #161b22;
+  --border-color: #30363d;
+  --body-bg: #0d1117;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --primary-light: #3c2420;
+}
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: outfit;
+  scroll-behavior: smooth;
+}
+body{
+  min-height: 100vh;
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+a{
+  text-decoration: none;
+  color: inherit
+}
+.app{
+  width: 80%;
+  margin: auto;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.loading-container {
+  min-height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 5px solid #bdbdbd;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: rotate 1s infinite linear;
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.veg-nonveg-tag {
+  width: 14px;
+  height: 14px;
+  border: 2px solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.veg-nonveg-tag::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+}
+.veg-nonveg-tag.veg {
+  border-color: #0f8a5f;
+}
+.veg-nonveg-tag.veg::after {
+  background-color: #0f8a5f;
+}
+.veg-nonveg-tag.non-veg {
+  border-color: #e53e3e;
+}
+.veg-nonveg-tag.non-veg::after {
+  background-color: #e53e3e;
+}
+.veg-nonveg-tag-overlay {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background-color: white;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+/* Splash Screen Styles */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--primary-hover), #ff4f30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOutSplash 0.5s ease-in-out 1.7s forwards;
+}
+.splash-logo {
+  font-size: max(5vw, 42px);
+  font-weight: 800;
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 1px;
+  animation: scaleUpLogo 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+.splash-logo .logo-dot {
+  color: #ffe8b5;
+}
+.splash-tagline {
+  font-size: max(0.9vw, 10px);
+  font-weight: 700;
+  color: #ffe8b5; /* Matching logo dot color for highlighting */
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-top: -10px;
+  animation: fadeInTagline 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  opacity: 0;
+}
+@keyframes fadeInTagline {
+  0% {
+    transform: translateY(12px);
+    letter-spacing: -1.5px;
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    letter-spacing: 4px;
+    opacity: 1;
+  }
+}
+@keyframes scaleUpLogo {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes fadeOutSplash {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.app {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.app.visible {
+  opacity: 1;
+}
+/* Splash Loader Content & Orbiting Food Animation */
+.splash-loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.splash-food-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+.splash-food-item {
+  font-size: 36px;
+  user-select: none;
+  display: inline-block;
+}
+/* Burger Bounces up and down */
+.splash-food-item.item-1 {
+  animation: bounceBurger 1s ease-in-out infinite alternate;
+}
+/* Pizza Spins continuously */
+.splash-food-item.item-2 {
+  animation: spinPizza 2.5s linear infinite;
+}
+/* Salad Bounces/scale-pulses */
+.splash-food-item.item-3 {
+  animation: pulseSalad 1.2s ease-in-out infinite alternate;
+}
+/* Cake/Dessert Swings left and right */
+.splash-food-item.item-4 {
+  animation: swingCake 1.5s ease-in-out infinite alternate;
+}
+@keyframes bounceBurger {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+@keyframes spinPizza {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulseSalad {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+@keyframes swingCake {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+}
+
+body.dark-mode .navbar {
+  background-color: var(--body-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+body.dark-mode .logo-text {
+  color: var(--text-color);
+}
+
+body.dark-mode .navbar-menu a {
+  color: var(--text-muted);
+}
+
+body.dark-mode .navbar-menu a.active, 
+body.dark-mode .navbar-menu a:hover {
+  color: var(--primary-color);
+}
+
+body.dark-mode .explore-menu h1,
+body.dark-mode .explore-menu-text,
+body.dark-mode .food-display h2 {
+  color: var(--text-color);
+}
+
+body.dark-mode .explore-menu-list-item p {
+  color: var(--text-muted);
+}
+
+body.dark-mode .food-item {
+  background-color: var(--card-bg);
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .food-item-name-rating p {
+  color: var(--text-color);
+}
+
+body.dark-mode .food-item-desc {
+  color: var(--text-muted);
+}
+
+body.dark-mode .food-item-counter {
+  background-color: #21262d;
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .food-item-counter p {
+  color: var(--text-color);
+}
+
+body.dark-mode .app-download h1 {
+  color: var(--text-color);
+}
+
+body.dark-mode .cart-items-title,
+body.dark-mode .cart-items-item {
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+body.dark-mode .cart-total,
+body.dark-mode .cart-promocode {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+body.dark-mode .cart-total-details p {
+  color: var(--text-muted);
+}
+
+body.dark-mode .place-order input {
+  background-color: #21262d;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .place-order-left p {
+  color: var(--text-color);
+}
+
+body.dark-mode .zomato-profile-header,
+body.dark-mode .zomato-sidebar,
+body.dark-mode .zomato-content-panel,
+body.dark-mode .zomato-order-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+body.dark-mode .zomato-user-meta-col h2,
+body.dark-mode .pane-title {
+  color: var(--text-color);
+}
+
+body.dark-mode .pane-desc,
+body.dark-mode .order-timestamp,
+body.dark-mode .user-email,
+body.dark-mode .user-location {
+  color: var(--text-muted);
+}
+
+body.dark-mode .sidebar-link {
+  color: var(--text-muted);
+}
+
+body.dark-mode .sidebar-link:hover {
+  background-color: #21262d;
+  color: var(--primary-color);
+}
+
+body.dark-mode .sidebar-link.active {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border-left-color: var(--primary-color);
+}
+
+body.dark-mode .zomato-address-form label {
+  color: var(--text-color);
+}
+
+body.dark-mode .form-group-full input,
+body.dark-mode .form-group-col input {
+  background-color: #21262d;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .login-popup-container {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .login-popup-title h2 {
+  color: var(--text-color);
+}
+
+body.dark-mode .login-popup-input input {
+  background-color: #21262d;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .login-popup-input p span {
+  color: var(--primary-color);
+}
+
+body.dark-mode .detail-popup-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .detail-item-name,
+body.dark-mode .detail-title {
+  color: var(--text-color);
+}
+
+body.dark-mode .detail-item-desc {
+  color: var(--text-muted);
+}
+
+body.dark-mode .reviews-section h4,
+body.dark-mode .review-card h5 {
+  color: var(--text-color);
+}
+
+body.dark-mode .review-card {
+  background-color: #21262d;
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .review-comment {
+  color: var(--text-color);
+}
+
+body.dark-mode .write-review-box textarea {
+  background-color: #21262d;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .theme-toggle-btn {
+  background-color: #21262d;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+body.dark-mode .theme-toggle-btn:hover {
+  background-color: #30363d;
+}
+
+body.dark-mode .suggestion-badge {
+  background-color: #21262d;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Fix browser autofill text and background colors in dark mode */
+body.dark-mode input:-webkit-autofill,
+body.dark-mode input:-webkit-autofill:hover, 
+body.dark-mode input:-webkit-autofill:focus, 
+body.dark-mode input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #21262d inset !important;
+  -webkit-text-fill-color: var(--text-color) !important;
+}

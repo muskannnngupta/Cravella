@@ -1,0 +1,223 @@
+.header-carousel-wrapper {
+  height: 38vw;
+  min-height: 380px;
+  margin: 30px auto;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.header-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
+  box-sizing: border-box;
+}
+
+.header-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Slide Gradients with background image fallback */
+.slide-pink {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.35)), url('/header_img.png') no-repeat right center/cover;
+}
+
+.slide-blue {
+  background: linear-gradient(135deg, rgba(16, 28, 48, 0.9), rgba(15, 76, 129, 0.45)), url('/header_img.png') no-repeat right center/cover;
+}
+
+.slide-yellow {
+  background: linear-gradient(135deg, rgba(46, 32, 10, 0.9), rgba(242, 201, 76, 0.35)), url('/header_img.png') no-repeat right center/cover;
+}
+
+.header-content {
+  max-width: 550px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 12px;
+  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.offer-tag {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(255, 99, 71, 0.3);
+}
+
+.header-content h1 {
+  font-size: max(3vw, 28px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.header-content h2 {
+  font-size: max(1.5vw, 16px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.header-content p {
+  font-size: max(1vw, 13px);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 5px 0 10px 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.promo-badge-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+}
+
+.promo-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.promo-code {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s;
+}
+
+.promo-code:hover {
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.header-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.header-buttons button {
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.header-buttons .btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+}
+
+.header-buttons .btn-primary:hover {
+  background-color: #e5533d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 99, 71, 0.4);
+}
+
+.header-buttons .btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.header-buttons .btn-secondary:hover {
+  background-color: white;
+  color: #333;
+  transform: translateY(-2px);
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.carousel-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-dots .dot.active {
+  background-color: var(--primary-color);
+  width: 25px;
+  border-radius: 5px;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-carousel-wrapper {
+    min-height: 400px;
+  }
+  .header-content {
+    max-width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+  .header-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .header-buttons button {
+    width: 100%;
+    padding: 10px 20px;
+  }
+  .promo-badge-container {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+}
