@@ -10,7 +10,7 @@ try {
     console.warn("Custom DNS servers setup skipped:", error.message);
 }
 import { connectDB } from './Config/db.js';
-import foodModel from './Models/Foodmodel.js';
+import foodModel from './Models/foodModel.js';
 import foodRouter from './Routes/foodRoute.js';
 import userRouter from './Routes/userRoute.js';
 import cartRouter from './Routes/cartRoute.js';
