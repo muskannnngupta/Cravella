@@ -5,7 +5,8 @@ import Stripe from "stripe"
 const placeorder = async(req,res) => {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-    const frontend_url = "http://localhost:5174"
+    // Dynamically detect frontend origin to support both localhost and Vercel redirects
+    const frontend_url = req.headers.origin || "http://localhost:5173";
 
     try {
         const newOrder = new orderModel({
