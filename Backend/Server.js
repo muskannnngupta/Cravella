@@ -4,6 +4,11 @@ dotenv.config();
 import express from 'express'
 import cors from 'cors'
 import dns from "dns";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 try {
     dns.setServers(["8.8.8.8", "8.8.4.4"]);
 } catch (error) {
@@ -46,7 +51,7 @@ connectDB();
 
 //api endpoint
 app.use("/api/food",foodRouter);
-app.use("/images", express.static('Uploads'));
+app.use("/images", express.static(path.join(__dirname, 'Uploads')));
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order",orderRouter);
